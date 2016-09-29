@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Build status icons</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="sha384-2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/8.0.0/markdown-it.min.js"></script>
+<script>
+$(function () {
+    var parameters = $('.parameter');
+    var template = $('#template').text();
+    var markdown = $('#markdown');
+    var preview = $('#preview');
+    var collection = {};
+
+    parameters.on('keyup', function () {
+        var data = {};
+
+        $.each(collection, function(param, el) {
+            if (param == 'github' && !collection[param].val()) {
+                data[param] = collection.composer.val();
+            } else {
+                data[param] = collection[param].val();
+            }
+        });
+
+        var result = Mustache.render(template, data);
+        markdown.val(result);
+        preview.html(window.markdownit().render(result));
+
+    }).each(function () {
+        collection[this.id] = $(this);
+    });
+});
+</script>
+<script type="text/template" id="template">{{#composer}}
+[![Latest Stable Version](https://img.shields.io/packagist/v/{{{composer}}}.svg?maxAge={{{maxAge}}}&label=stable)](https://packagist.org/packages/{{{composer}}})
+[![Latest Unstable Version](https://img.shields.io/packagist/vpre/{{{composer}}}.svg?maxAge={{{maxAge}}}&label=unstable)](https://packagist.org/packages/{{{composer}}})
+[![Total Downloads](https://img.shields.io/packagist/dt/{{{composer}}}.svg?maxAge={{{maxAge}}})](https://packagist.org/packages/{{{composer}}})
+{{/composer}}
+{{#github}}
+[![Build Status](https://img.shields.io/travis/{{{github}}}.svg?maxAge={{{maxAge}}})](https://travis-ci.org/{{{github}}})
+[![Coverage Status](https://img.shields.io/coveralls/{{{github}}}.svg?maxAge={{{maxAge}}})](https://coveralls.io/github/{{{github}}}?branch=master)
+[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/{{{github}}}.svg?maxAge={{{maxAge}}})](https://scrutinizer-ci.com/g/{{{github}}}/?branch=master)
+{{/github}}
+{{#sensio}}
+[![SensioLabs Insight](https://img.shields.io/sensiolabs/i/{{{sensio}}}.svg?maxAge={{{maxAge}}}&label=SLInsight)](https://insight.sensiolabs.com/projects/{{{sensio}}})
+{{/sensio}}
+{{#style}}
+[![StyleCI](https://styleci.io/repos/{{{style}}}/shield?branch=master)](https://styleci.io/repos/{{{style}}})
+{{/style}}
+{{#github}}
+[![License](https://img.shields.io/github/license/{{{github}}}.svg?maxAge={{{maxAge}}})](https://github.com/{{{github}}})
+{{/github}}
+</script>
+</head>
+<body>
+<div class="container m-t-2">
+    <h1>Build status icons</h1>
+    <hr>
+    <form>
+        <div class="form-group">
+            <label for="composer">Composer</label>
+            <input type="text" name="composer" class="form-control parameter" id="composer" placeholder="vendor/package">
+        </div>
+        <div class="form-group">
+            <label for="github">GitHub</label>
+            <input type="text" name="github" class="form-control parameter" id="github" placeholder="vendor/package">
+            <small class="form-text text-muted">As a default use <a href="#composer">Composer</a> parameter.</small>
+        </div>
+        <div class="form-group">
+            <label for="sensio">SensioLabsInsight</label>
+            <input type="text" name="sensio" class="form-control parameter" id="sensio" placeholder="00000000-0000-0000-0000-000000000000">
+        </div>
+        <div class="form-group">
+            <label for="style">StyleCI</label>
+            <input type="text" name="style" class="form-control parameter" id="style" placeholder="00000000">
+            <small class="form-text text-muted">Not full supported now. See <a href="https://github.com/badges/shields/issues/503">#503</a>.</small>
+        </div>
+        <div class="form-group">
+            <label for="maxAge">HTTP cache lifetime in secs</label>
+            <input type="text" name="maxAge" class="form-control parameter" id="maxAge" value="3600" placeholder="3600">
+        </div>
+        <hr>
+        <div class="form-group">
+            <div id="preview"></div>
+            <label for="markdown">Markdown</label>
+            <textarea name="markdown" class="form-control" id="markdown" cols="60" rows="15" readonly="readonly"></textarea>
+        </div>
+    </form>
+</div>
+</body>
+</html>
