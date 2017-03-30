@@ -2,38 +2,12 @@
 <html>
 <head>
 <title>Build status icons</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="sha384-2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/8.0.0/markdown-it.min.js"></script>
-<script>
-$(function () {
-    var parameters = $('.parameter');
-    var template = $('#template').text();
-    var markdown = $('#markdown');
-    var preview = $('#preview');
-    var collection = {};
-
-    parameters.on('keyup', function () {
-        var data = {};
-
-        $.each(collection, function(param, el) {
-            if (param == 'github' && !collection[param].val()) {
-                data[param] = collection.composer.val();
-            } else {
-                data[param] = collection[param].val();
-            }
-        });
-
-        var result = Mustache.render(template, data);
-        markdown.val(result);
-        preview.html(window.markdownit().render(result));
-
-    }).each(function () {
-        collection[this.id] = $(this);
-    });
-});
-</script>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="sha384-2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/markdown-it/8.0.0/markdown-it.min.js"></script>
+<script src="/js.cookie.js"></script>
+<script src="/app.js"></script>
 <script type="text/template" id="template">{{#composer}}
 [![Latest Stable Version](https://img.shields.io/packagist/v/{{{composer}}}.svg?maxAge={{{maxAge}}}&label=stable)](https://packagist.org/packages/{{{composer}}})
 [![Total Downloads](https://img.shields.io/packagist/dt/{{{composer}}}.svg?maxAge={{{maxAge}}})](https://packagist.org/packages/{{{composer}}})
