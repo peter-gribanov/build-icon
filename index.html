@@ -12,19 +12,13 @@
 [![Latest Stable Version](https://img.shields.io/packagist/v/{{{composer}}}.svg?maxAge={{{maxAge}}}&label=stable)](https://packagist.org/packages/{{{composer}}})
 {{/composer}}
 {{#github}}
-[![PHP from Travis config](https://img.shields.io/travis/php-v/{{{github}}}.svg?maxAge={{{maxAge}}})](https://packagist.org/packages/{{{composer}}})
+[![PHP Version Support](https://img.shields.io/travis/php-v/{{{github}}}.svg?maxAge={{{maxAge}}})](https://packagist.org/packages/{{{composer}}})
 {{/github}}
 {{#github}}
 [![Build Status](https://img.shields.io/travis/{{{github}}}.svg?maxAge={{{maxAge}}})](https://travis-ci.org/{{{github}}})
 [![Coverage Status](https://img.shields.io/coveralls/{{{github}}}.svg?maxAge={{{maxAge}}})](https://coveralls.io/github/{{{github}}}?branch=master)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/{{{github}}}.svg?maxAge={{{maxAge}}})](https://scrutinizer-ci.com/g/{{{github}}}/?branch=master)
 {{/github}}
-{{#sensio}}
-[![SensioLabs Insight](https://img.shields.io/sensiolabs/i/{{{sensio}}}.svg?maxAge={{{maxAge}}}&label=SLInsight)](https://insight.sensiolabs.com/projects/{{{sensio}}})
-{{/sensio}}
-{{#style}}
-[![StyleCI](https://styleci.io/repos/{{{style}}}/shield?branch=master)](https://styleci.io/repos/{{{style}}})
-{{/style}}
 {{#composer}}
 [![License](https://img.shields.io/packagist/l/{{{composer}}}.svg?maxAge={{{maxAge}}})](https://github.com/{{{github}}})
 {{/composer}}
@@ -43,15 +37,6 @@
             <label for="github">GitHub</label>
             <input type="text" name="github" class="form-control parameter" id="github" placeholder="vendor/package">
             <small class="form-text text-muted">As a default use <a href="#composer">Composer</a> parameter.</small>
-        </div>
-        <div class="form-group">
-            <label for="sensio">SensioLabsInsight</label>
-            <input type="text" name="sensio" class="form-control parameter" id="sensio" placeholder="00000000-0000-0000-0000-000000000000">
-        </div>
-        <div class="form-group">
-            <label for="style">StyleCI</label>
-            <input type="text" name="style" class="form-control parameter" id="style" placeholder="00000000">
-            <small class="form-text text-muted">Not full supported now. See <a href="https://github.com/badges/shields/issues/503">#503</a>.</small>
         </div>
         <div class="form-group">
             <label for="maxAge">HTTP cache lifetime in secs</label>
